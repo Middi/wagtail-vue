@@ -8,6 +8,8 @@ from wagtail.documents import urls as wagtaildocs_urls
 
 from search import views as search_views
 
+from .api import api_router
+
 urlpatterns = [
     url(r'^django-admin/', admin.site.urls),
 
@@ -15,7 +17,7 @@ urlpatterns = [
     url(r'^documents/', include(wagtaildocs_urls)),
 
     url(r'^search/$', search_views.search, name='search'),
-
+    url(r'^api/v2/', api_router.urls),
 ]
 
 
