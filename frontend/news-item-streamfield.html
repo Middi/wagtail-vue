@@ -1,0 +1,45 @@
+<html>
+<head>
+  <title>Headless news</title>
+  <meta charset="UTF-8">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <h1>{{ item.title }}</h1>
+    <h2>{{ item.intro }}</h2>
+    <span v-for="block in item.body">
+    <div v-if="block.type == 'heading'">
+        <h2>{{ block.value }}</h2>
+    </div>
+    <div v-else-if="block.type == 'image'">
+        <h2>image:</h2>
+        <img v-if="item.image_thumbnail"
+            :src="'http://localhost:8000' + item.image_thumbnail.url"
+            :width="item.image_thumbnail.width"
+            :height="item.image_thumbnail.height"
+        />
+    </div>
+    <div v-else-if="block.type == 'paragraph'">
+        <p v-html="block.value"></p>
+    </div>
+</span>
+  </div>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data () {
+          return {
+              item: {}
+          }
+      },
+      mounted () {
+          axios
+          .get('http://localhost:8000/api/v2/pages/6/')
+          .then(response => (this.item = response.data))
+      }
+    })
+  </script>
+</body>
+</html>
