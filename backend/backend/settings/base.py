@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
+    'wagtail_headless_preview',
 ]
 
 MIDDLEWARE = [
@@ -169,3 +170,9 @@ WAGTAIL_SITE_NAME = "backend"
 BASE_URL = 'http://example.com'
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+HEADLESS_PREVIEW_CLIENT_URLS = {
+    'default': 'http://localhost:8002/',
+}
+
+CORS_URLS_REGEX = r'^/api/v2/'
